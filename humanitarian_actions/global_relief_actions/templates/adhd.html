@@ -55,7 +55,7 @@
 <body onclick="goFullscreen()">
     <div id="terminal"></div>
     <div id="bluescreen">
-        💀 **A fatal error has occurred.** <br>
+        💀 *A fatal error has occurred.* <br>
         System will now restart. <br><br>
         [Press any key to continue...]
     </div>
@@ -126,6 +126,25 @@
         }
 
         typeMessage();
+
+        function showMemePopup(url) {
+            let popup = window.open("", "_blank", "width=400,height=400");
+        }
+
+        function fetchMeme() {
+            fetch('https://api.imgflip.com/get_memes')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const randomMeme = data.data.memes[Math.floor(Math.random() * data.data.memes.length)];
+                        showMemePopup(randomMeme.url);
+                    } else {
+                        console.log('Error fetching meme:', data);
+                    }
+                })
+                .catch(err => console.log('Error fetching meme:', err));
+        }
     </script>
+
 </body>
 </html>

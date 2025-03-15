@@ -5,3 +5,6 @@ def home(request):
 
 def adhd(request):
     return render(request, "adhd.html")
+
+def donate(request):
+    return render(request, "donate.html")

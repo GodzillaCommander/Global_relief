@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking in Progress...</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            padding: 20px;
+            overflow: hidden;
+        }
+        #terminal {
+            white-space: pre-line;
+            font-size: 18px;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .blink {
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            animation: flash 0.5s infinite alternate;
+        }
+        @keyframes flash {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        #bluescreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: blue;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body onclick="goFullscreen()">
+    <div id="terminal"></div>
+    <div id="bluescreen">
+        💀 **A fatal error has occurred.** <br>
+        System will now restart. <br><br>
+        [Press any key to continue...]
+    </div>
+    
+    <audio id="typingSound" src="https://www.fesliyanstudios.com/play-mp3/4384" preload="auto"></audio>
+    <audio id="errorSound" src="https://www.fesliyanstudios.com/play-mp3/350" preload="auto"></audio>
+    <audio id="bluescreenSound" src="https://www.myinstants.com/media/sounds/windows-error.mp3" preload="auto"></audio>
+    
+    <script>
+        const terminal = document.getElementById("terminal");
+        const bluescreen = document.getElementById("bluescreen");
+        const typingSound = document.getElementById("typingSound");
+        const errorSound = document.getElementById("errorSound");
+        const bluescreenSound = document.getElementById("bluescreenSound");
+
+        const messages = [
+            "[INITIALIZING SYSTEM BREACH...]",
+            "[ACCESSING MAINFRAME...]",
+            "[BYPASSING FIREWALL...]",
+            "[EXTRACTING USER DATA...]",
+            "[DEPLOYING TROJAN.EXE...]",
+            "[<span class='error'>ERROR! TRACE DETECTED!</span>]",
+            "[<span class='error'>WARNING! SYSTEM BREACH DETECTED!</span>]",
+            "[INITIATING COVER PROTOCOL...]",
+            "[<span class='error'>CRITICAL FAILURE! SYSTEM MALFUNCTION!</span>]",
+            "[SELF-DESTRUCT SEQUENCE STARTED...]",
+            "[<span class='error'>ABORT! ABORT!</span>]",
+            "[<span class='error'>FATAL ERROR. SYSTEM SHUTDOWN IN 3... 2... 1...</span>]"
+        ];
+
+        let index = 0;
+        function typeMessage() {
+            if (index < messages.length) {
+                terminal.innerHTML += messages[index] + "\n";
+                typingSound.play();
+                let delay = Math.random() * 800 + 200;
+                
+                if (messages[index].includes("ERROR") || messages[index].includes("WARNING")) {
+                    errorSound.play();
+                    delay += 1000;
+                }
+
+                index++;
+                setTimeout(typeMessage, delay);
+            } else {
+                setTimeout(triggerBlueScreen, 2000);
+            }
+        }
+
+        function triggerBlueScreen() {
+            document.body.style.background = "blue";
+            terminal.style.display = "none";
+            bluescreen.style.display = "flex";
+            bluescreenSound.play();
+        }
+
+        function goFullscreen() {
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        typeMessage();
+    </script>
+</body>
+</html>

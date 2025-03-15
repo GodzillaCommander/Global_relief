@@ -1,67 +1,129 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-	<meta charset="UTF-8">
-	<title>donate | World funder</title>
-	<style>
-		.elementor-button-text{
-			background-color: #298dc2;
-			border: #247baa;
-			color: white;
-			padding: 15px 32px;
-			width: 200px;
-			height: 70px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			border-radius: 12px;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Elementor 3.27.7; features: additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-auto">
+    <title>Donate | World Funder</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: center;
+        }
 
-	</style>
-<script>
-!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'AW-395793412');
-</script>
-<script>
-function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
-    }
-  };
-  gtag('event', 'conversion', {
-      'send_to': 'AW-395793412/mHSgCLTj0v0BEISo3bwB',
-      'value': 1.0,
-      'currency': 'USD',
-      'event_callback': callback
-  });
-  return false;
-}
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            text-align: center;
+        }
 
-</script>
-<meta name="generator" content="Elementor 3.27.7; features: additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-auto">
-<body>		
-	<audio id="typingSound" src="Untitled song.mp3" preload="auto"></audio>
-	<div class="elementor-widget-container">
-		<div class="elementor-button-wrapper">
-	<a class="elementor-button elementor-button-link elementor-size-md" href="normal/">
-	<span class="elementor-button-content-wrapper">
-		<button class="elementor-button-text"><span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 30px;">Donate</span></button>
-	</span>
-	</a>
-	</div>
-					<!-- Begin Give Lively Fundraising Widget -->
-<script>gl=document.createElement('script');gl.src='https://secure.givelively.org/widgets/branded_donation/myaswan-inc.js';document.getElementsByTagName('head')[0].appendChild(gl);</script><div data-widget-src='https://secure.givelively.org/donate/myaswan-inc?ref=sd_widget' id="give-lively-widget" class="gl-branded-donation-widget"></div>
-<!-- End Give Lively Fundraising Widget -->			
-</div>
+        h1 {
+            font-size: 36px;
+            color: #298dc2;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
 
+        .elementor-button-wrapper {
+            margin-top: 30px;
+        }
+
+        .elementor-button-text {
+            background-color: #298dc2;
+            border: none;
+            color: white;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .elementor-button-text:hover {
+            background-color: #247baa;
+            transform: translateY(-5px);
+        }
+
+        #give-lively-widget {
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .elementor-button-text {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <script>
+        function gtag_report_conversion(url) {
+            var callback = function() {
+                if (typeof(url) !== 'undefined') {
+                    window.location = url;
+                }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-395793412/mHSgCLTj0v0BEISo3bwB',
+                'value': 1.0,
+                'currency': 'USD',
+                'event_callback': callback
+            });
+            return false;
+        }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-395793412"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'AW-395793412');
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Support Our Cause and Make a Difference</h1>
+
+
+        <div class="elementor-button-wrapper">
+            <a href="normal/" class="elementor-button">
+                <span class="elementor-button-content-wrapper">
+                    <button class="elementor-button-text">
+                        Donate Now
+                    </button>
+                </span>
+            </a>
+        </div>
+
+        <script>
+            var gl = document.createElement('script');
+            gl.src = 'https://secure.givelively.org/widgets/branded_donation/myaswan-inc.js';
+            document.getElementsByTagName('head')[0].appendChild(gl);
+        </script>
+        <div data-widget-src='https://secure.givelively.org/donate/myaswan-inc?ref=sd_widget' id="give-lively-widget" class="gl-branded-donation-widget"></div>
+
+    </div>
 
 </body>
 </html>

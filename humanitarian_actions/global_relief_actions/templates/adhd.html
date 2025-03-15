@@ -3,148 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacking in Progress...</title>
+    <title>System Overload</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
             background-color: black;
             color: lime;
-            font-family: monospace;
-            padding: 20px;
             overflow: hidden;
+            position: relative;
+            transition: background-color 0.05s, color 0.05s;
         }
-        #terminal {
-            white-space: pre-line;
-            font-size: 18px;
-            overflow: hidden;
-            height: 100vh;
+
+        #loading-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 2px solid #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .blink {
-            animation: blink 1s infinite alternate;
+
+        #loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: lime;
+            transition: width 0.1s;
         }
-        @keyframes blink {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-            animation: flash 0.5s infinite alternate;
-        }
-        @keyframes flash {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        #bluescreen {
+
+        #chaos-container {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: blue;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+
+        .error-message {
+            position: absolute;
+            font-size: 1.5em;
+            padding: 10px;
+            background-color: rgba(255, 0, 0, 0.7);
+            border: 2px solid #ff0000;
             color: white;
-            font-size: 2em;
-            text-align: center;
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(2px, 2px); }
+            25% { transform: translate(-2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            75% { transform: translate(2px, -2px); }
+            100% { transform: translate(2px, 2px); }
+        }
+
+        #terminal {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            font-size: 14px;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+
+        #calm-button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 2000;
+            display: none;
+        }
+
+        #minigame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            z-index: 3000;
+        }
+
+        #target {
+            width: 50px;
+            height: 50px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        #score {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
         }
     </style>
 </head>
-<body onclick="goFullscreen()">
-    <div id="terminal"></div>
-    <div id="bluescreen">
-        💀 *A fatal error has occurred.* <br>
-        System will now restart. <br><br>
-        [Press any key to continue...]
+<body>
+    <div id="loading-container">
+        <div id="loading-bar"></div>
     </div>
-    
-    <audio id="typingSound" src="https://www.fesliyanstudios.com/play-mp3/4384" preload="auto"></audio>
-    <audio id="errorSound" src="https://www.fesliyanstudios.com/play-mp3/350" preload="auto"></audio>
-    <audio id="bluescreenSound" src="https://www.myinstants.com/media/sounds/windows-error.mp3" preload="auto"></audio>
-    
-    <script>
-        const terminal = document.getElementById("terminal");
-        const bluescreen = document.getElementById("bluescreen");
-        const typingSound = document.getElementById("typingSound");
-        const errorSound = document.getElementById("errorSound");
-        const bluescreenSound = document.getElementById("bluescreenSound");
 
-        const messages = [
-            "[INITIALIZING SYSTEM BREACH...]",
-            "[ACCESSING MAINFRAME...]",
-            "[BYPASSING FIREWALL...]",
-            "[EXTRACTING USER DATA...]",
-            "[DEPLOYING TROJAN.EXE...]",
-            "[<span class='error'>ERROR! TRACE DETECTED!</span>]",
-            "[<span class='error'>WARNING! SYSTEM BREACH DETECTED!</span>]",
-            "[INITIATING COVER PROTOCOL...]",
-            "[<span class='error'>CRITICAL FAILURE! SYSTEM MALFUNCTION!</span>]",
-            "[SELF-DESTRUCT SEQUENCE STARTED...]",
-            "[<span class='error'>ABORT! ABORT!</span>]",
-            "[<span class='error'>FATAL ERROR. SYSTEM SHUTDOWN IN 3... 2... 1...</span>]"
+    <div id="chaos-container"></div>
+    <div id="terminal"></div>
+    <button id="calm-button">STABILIZE SYSTEM</button>
+    <div id="minigame">
+        <div id="score">Score: 0</div>
+        <div id="target"></div>
+    </div>
+
+    <script>
+        const loadingBar = document.getElementById('loading-bar');
+        const chaosContainer = document.getElementById('chaos-container');
+        const terminal = document.getElementById('terminal');
+        const calmButton = document.getElementById('calm-button');
+        const minigame = document.getElementById('minigame');
+        const target = document.getElementById('target');
+        const scoreDisplay = document.getElementById('score');
+
+        let chaosLevel = 0;
+        let score = 0;
+        let targetX = 0;
+        let targetY = 0;
+        let targetSpeedX = 2;
+        let targetSpeedY = 2;
+
+        const errorMessages = [
+            "CRITICAL ERROR", "SYSTEM FAILURE", "FIREWALL BREACH",
+            "DATA CORRUPTION", "KERNEL PANIC", "FATAL EXCEPTION",
+            "MEMORY OVERFLOW", "STACK TRACE ERROR", "SEGMENTATION FAULT"
         ];
 
-        let index = 0;
-        function typeMessage() {
-            if (index < messages.length) {
-                terminal.innerHTML += messages[index] + "\n";
-                typingSound.play();
-                let delay = Math.random() * 800 + 200;
-                
-                if (messages[index].includes("ERROR") || messages[index].includes("WARNING")) {
-                    errorSound.play();
-                    delay += 1000;
+        let loadingInterval = setInterval(() => {
+            chaosLevel++;
+            loadingBar.style.width = `${chaosLevel}%`;
+            if (chaosLevel >= 100) {
+                clearInterval(loadingInterval);
+                startChaos();
+            }
+        }, 50);
+
+        function startChaos() {
+            chaosContainer.style.position = 'absolute';
+            chaosLevel = 0;
+            setTimeout(updateChaos, 50);
+        }
+
+        function updateChaos() {
+            if (chaosLevel < 100) {
+                chaosLevel++;
+                setTimeout(updateChaos, Math.max(5, 100 - chaosLevel * 2));
+
+                if (Math.random() < 0.5) {
+                    createErrorMessage();
+                }
+                if (Math.random() < 0.5) {
+                    createMeme();
                 }
 
-                index++;
-                setTimeout(typeMessage, delay);
+                logTerminal(`🔥 System instability at ${chaosLevel}% 🔥`);
+
+                // Randomly change background color
+                document.body.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
             } else {
-                setTimeout(triggerBlueScreen, 2000);
+                showCalmButton();
             }
         }
 
-        function triggerBlueScreen() {
-            document.body.style.background = "blue";
-            terminal.style.display = "none";
-            bluescreen.style.display = "flex";
-            bluescreenSound.play();
+        function createErrorMessage() {
+            const error = document.createElement('div');
+            error.classList.add('error-message');
+            error.textContent = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+            error.style.left = `${Math.random() * 80}%`;
+            error.style.top = `${Math.random() * 80}%`;
+            chaosContainer.appendChild(error);
+            setTimeout(() => error.remove(), 2000);
         }
 
-        function goFullscreen() {
-            let elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) {
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) {
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) {
-                elem.msRequestFullscreen();
-            }
-        }
-
-        typeMessage();
-
-        function showMemePopup(url) {
-            let popup = window.open("", "_blank", "width=400,height=400");
-        }
-
-        function fetchMeme() {
-            fetch('https://api.imgflip.com/get_memes')
+        function createMeme() {
+            fetch("https://api.imgflip.com/get_memes")
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        const randomMeme = data.data.memes[Math.floor(Math.random() * data.data.memes.length)];
-                        showMemePopup(randomMeme.url);
-                    } else {
-                        console.log('Error fetching meme:', data);
-                    }
+                    const memes = data.data.memes;
+                    const randomMeme = memes[Math.floor(Math.random() * memes.length)].url;
+
+                    const meme = document.createElement('img');
+                    meme.src = randomMeme;
+                    meme.style.position = 'absolute';
+                    meme.style.left = `${Math.random() * (window.innerWidth - 200)}px`;
+                    meme.style.top = `${Math.random() * (window.innerHeight - 300)}px`;
+                    meme.style.width = '200px';
+                    meme.style.height = '300px';
+
+                    chaosContainer.appendChild(meme);
+                    setTimeout(() => meme.remove(), 3000);
                 })
-                .catch(err => console.log('Error fetching meme:', err));
+                .catch(error => console.error("Error fetching memes:", error));
+        }
+
+        function logTerminal(message) {
+            const log = document.createElement('div');
+            log.textContent = `> ${message}`;
+            terminal.appendChild(log);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function showCalmButton() {
+            calmButton.style.display = 'block';
+        }
+
+        calmButton.addEventListener('click', startMinigame);
+
+        function startMinigame() {
+            chaosContainer.innerHTML = '';
+            calmButton.style.display = 'none';
+            minigame.style.display = 'flex';
+            score = 0;
+            updateScore();
+            initializeTargetPosition();
+            gameLoop();
+        }
+
+        function initializeTargetPosition() {
+            targetX = Math.random() * (window.innerWidth - 50);
+            targetY = Math.random() * (window.innerHeight - 50);
+            target.style.left = `${targetX}px`;
+            target.style.top = `${targetY}px`;
+        }
+
+        function gameLoop() {
+            moveTarget();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function moveTarget() {
+            targetX += targetSpeedX;
+            targetY += targetSpeedY;
+
+            if (targetX + 50 > window.innerWidth || targetX < 0) {
+                targetSpeedX = -targetSpeedX;
+            }
+            if (targetY + 50 > window.innerHeight || targetY < 0) {
+                targetSpeedY = -targetSpeedY;
+            }
+
+            target.style.left = `${targetX}px`;
+            target.style.top = `${targetY}px`;
+        }
+
+        target.addEventListener('click', () => {
+            score++;
+            updateScore();
+            initializeTargetPosition();
+
+            if (score >= 7) {
+                alert('Congratulations! You won the game!');
+                window.location.href = 'todo/';
+            }
+        });
+
+        function updateScore() {
+            scoreDisplay.textContent = `Score: ${score}`;
         }
     </script>
-
 </body>
 </html>

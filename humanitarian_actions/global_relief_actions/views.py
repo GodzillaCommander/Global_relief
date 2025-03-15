@@ -8,3 +8,6 @@ def adhd(request):
 
 def donate(request):
     return render(request, "donate.html")
+
+def todo(request):
+    return render(request, "todo.html")

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Suite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        #abort-all-btn {
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #abort-all-btn:hover {
+            background-color: darkred;
+        }
+
+        #timer-btn {
+            background-color: #007bff; 
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #timer-btn:hover {
+            background-color: #0056b3;
+        }
+
+
+
+        #productivity-suite {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Courier New', monospace;
+            color: #000;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .task {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .task label {
+            display: flex;
+            align-items: center;
+        }
+
+        .task input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .task .mood-tag {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #ff3366;
+            color: white;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .task .due-date {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        #add-task-btn {
+            padding: 10px 20px;
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .side-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 15px;
+            font-size: 18px;
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #side-btn-left {
+            left: 10px;
+        }
+
+        #side-btn-right {
+            right: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 70%;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .task-list-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #quote {
+            font-size: 18px;
+            color: #3498db;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .timer {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ff3366;
+        }
+
+        #calendar-container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #calendar-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 5px;
+            text-align: center;
+        }
+
+        .day-cell {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .day-cell:hover {
+            background-color: #ff3366;
+            color: white;
+        }
+
+        .day-cell.today {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="productivity-suite">
+        <div class="header">
+            <h1>Productivity Suite</h1>
+            <button id="abort-all-btn">Abort All</button>
+        </div>
+        <div class="global-progress-bar-container">
+            <div class="global-progress-bar" id="global-progress-bar"></div>
+        </div>
+        <div class="task-list-container" id="task-list">
+            <div class="task">
+                <label><input type="checkbox"> Task 1</label>
+                <span class="mood-tag">Urgent</span>
+                <span class="due-date">Due: Tomorrow</span>
+            </div>
+            <div class="task">
+                <label><input type="checkbox"> Task 2</label>
+                <span class="mood-tag">Not important at all</span>
+                <span class="due-date">Due: Tomorrow</span>
+            </div>
+            <div class="task">
+                <label><input type="checkbox"> Task 3</label>
+                <span class="mood-tag">Urgent</span>
+                <span class="due-date">Due: Tomorrow</span>
+            </div>
+        </div>
+        <div id="add-task">
+            <input type="text" id="new-task-input" placeholder="Enter new task">
+            <button id="add-task-btn">Add Task</button>
+        </div>
+        <div id="quote">You can do it!</div>
+        <div class="timer-container">
+            <div class="timer" id="timer">00:00</div>
+            <button id="timer-btn">Start Timer</button>
+        </div>
+        
+        <div id="calendar-container">
+            <h2>Totally Normal Calendar</h2>
+            <div class="calendar-grid" id="calendar-grid">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const taskList = document.getElementById('task-list');
+        const newTaskInput = document.getElementById('new-task-input');
+        const addTaskBtn = document.getElementById('add-task-btn');
+        const quote = document.getElementById('quote');
+        const timerElement = document.getElementById('timer');
+        const globalProgressBar = document.getElementById('global-progress-bar');
+
+        document.getElementById('abort-all-btn').addEventListener('click', function() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('timer-btn').textContent = 'Start Timer'; 
+
+            document.querySelectorAll('.task').forEach(task => {
+                task.remove();
+            });
+
+            alert('All tasks aborted!');
+        });
+
+
+        let completedTasks = 0;
+        let totalTasks = 3;
+
+        function updateGlobalProgressBar() {
+            const progress = (completedTasks / totalTasks) * 100;
+            globalProgressBar.style.width = `${progress}%`;
+        }
+
+        addTaskBtn.addEventListener('click', function() {
+            const taskText = newTaskInput.value.trim();
+            if (taskText) {
+                const newTask = document.createElement('div');
+                newTask.className = 'task';
+                const mood = Math.random() > 0.5 ? "Urgent" : "Not important at all";
+                const dueDate = getRandomDueDate();
+                newTask.innerHTML = `<label><input type="checkbox"> ${taskText}</label><span class="mood-tag">${mood}</span><span class="due-date">${dueDate}</span>`;
+                taskList.appendChild(newTask);
+                newTaskInput.value = '';
+                totalTasks++;
+                updateGlobalProgressBar();
+            }
+        });
+
+        const quotes = [
+            "Hard work never killed anyone, but why take the risk?",
+            "If at first you don’t succeed, redefine success.",
+            "You miss 100% of the naps you don’t take.",
+            "Motivation is just procrastination in a fancy outfit.",
+            "The early bird gets the worm, but the second mouse gets the cheese.",
+            "Dream big. Or at least dream of getting out of bed.",
+            "Success is like a mountain—too much effort, so let's stay here.",
+            "You can do it! But should you?",
+            "Procrastinate now, panic later.",
+            "Remember: if everything is under control, you’re not going fast enough."
+        ];
+
+
+        function updateQuote() {
+            quote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        setInterval(updateQuote, 5000);
+
+        const impossibleTasks = [
+            "Climb Mount Everest",
+            "Bake a cake in space",
+            "Solve a Rubik's cube with your feet",
+            "Become a Jedi Master",
+            "Swim across the Atlantic Ocean",
+            "Build a time machine",
+            "Run a marathon in the Sahara Desert",
+            "Discover a new planet",
+            "Write a novel in 24 hours",
+            "Perform surgery on yourself"
+        ];
+
+        setInterval(() => {
+            const randomTaskText = impossibleTasks[Math.floor(Math.random() * impossibleTasks.length)];
+            const newTask = document.createElement('div');
+            newTask.className = 'task';
+            const mood = Math.random() > 0.5 ? "Urgent" : "Not important at all";
+            const dueDate = getRandomDueDate();
+            newTask.innerHTML = `<label><input type="checkbox"> ${randomTaskText}</label><span class="mood-tag">${mood}</span><span class="due-date">${dueDate}</span>`;
+            taskList.appendChild(newTask);
+            totalTasks++;
+            updateGlobalProgressBar();
+        }, 2000);
+
+        setInterval(() => {
+            const checkboxes = document.querySelectorAll('.task input[type="checkbox"]');
+            if (checkboxes.length > 0) {
+                const randomCheckbox = checkboxes[Math.floor(Math.random() * checkboxes.length)];
+                if (Math.random() > 0.5) {
+                    randomCheckbox.checked = false;
+                } else {
+                    const task = randomCheckbox.closest('.task');
+                    const randomTask = checkboxes[Math.floor(Math.random() * checkboxes.length)].closest('.task');
+                    task.parentElement.insertBefore(task, randomTask);
+                }
+            }
+        }, 3000);
+
+        setInterval(() => {
+            const tasks = document.querySelectorAll('.task');
+            if (tasks.length > 0) {
+                const randomTask = tasks[Math.floor(Math.random() * tasks.length)];
+                if (Math.random() > 0.5) {
+                    randomTask.style.display = 'none';
+                    setTimeout(() => {
+                        const newTaskName = `Task ${Math.floor(Math.random() * 1000)}`;
+                        const newTask = document.createElement('div');
+                        newTask.className = 'task';
+                        const mood = Math.random() > 0.5 ? "Urgent" : "Not important at all";
+                        const dueDate = getRandomDueDate();
+                        newTask.innerHTML = `<label><input type="checkbox"> ${newTaskName}</label><span class="mood-tag">${mood}</span><span class="due-date">${dueDate}</span>`;
+                        taskList.appendChild(newTask);
+                        totalTasks++;
+                        updateGlobalProgressBar();
+                    }, 5000);
+                }
+            }
+        }, 15000);
+
+        let timerCount = 0;
+        let isCountingUp = Math.random() > 0.5;
+        let timerRunning = false;
+        let timerInterval;
+
+        document.getElementById('timer-btn').addEventListener('click', function() {
+            if (timerRunning) {
+                clearInterval(timerInterval);
+                this.textContent = 'Start Timer';
+            } else {
+                timerInterval = setInterval(() => {
+                    if (isCountingUp) {
+                        timerCount++;
+                    } else {
+                        timerCount--;
+                    }
+
+                    if (timerCount < 0) {
+                        timerCount = 0;
+                    }
+
+                    const minutes = Math.floor(timerCount / 60);
+                    const seconds = timerCount % 60;
+                    document.getElementById('timer').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                    if (Math.random() > 0.9) {
+                        isCountingUp = !isCountingUp;
+                    }
+                }, 1000);
+
+                this.textContent = 'Stop Timer';
+            }
+            timerRunning = !timerRunning;
+        });
+
+
+        const sounds = [
+            'https://www.soundjay.com/button/beep-07.wav',
+            'https://www.soundjay.com/animals/goat-bleat-1.wav',
+            'https://www.soundjay.com/button/horn-1.wav',
+        ];
+
+        taskList.addEventListener('change', (event) => {
+            if (event.target.type === 'checkbox' && event.target.checked) {
+                const randomSound = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
+                randomSound.play();
+            }
+        });
+
+        function getRandomDueDate() {
+            const dueDates = [
+                "Due: Tomorrow",
+                "Due: In 5 minutes",
+                "Due: Next week",
+                "Due: Right now"
+            ];
+            return dueDates[Math.floor(Math.random() * dueDates.length)];
+        }
+
+        const calendarGrid = document.getElementById('calendar-grid');
+
+        function generateCalendar() {
+            calendarGrid.innerHTML = '';
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            daysOfWeek.forEach(day => {
+                const dayNameCell = document.createElement('div');
+                dayNameCell.classList.add("today");
+                dayNameCell.innerHTML = day;
+                calendarGrid.appendChild(dayNameCell);
+            });
+
+            for (let i = 0; i < 6; i++) {
+                for (let j = 0; j < 7; j++) {
+                    const dayCell = document.createElement('div');
+                    dayCell.classList.add('day-cell');
+                    if (i * 7 + j + 1 <= 31) {
+                        dayCell.innerHTML = 'Today';
+                    }
+                    calendarGrid.appendChild(dayCell);
+                }
+            }
+        }
+
+
+        generateCalendar();
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<h1>Global Relief Actions (GRA) </h1>, <h2>World Funder (WF) </h2>,<h4> Humanitarian Action (HA).</h4>
+<h1>Global Relief Actions (GRA) </h1> <h2>World Funder (WF) </h2> <h4> Humanitarian Action (HA)</h4>
 <p>About Humanitarian Action. </p>
 <p>Donation page: button- below the page.</p>
 <p><ol>

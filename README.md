@@ -1,6 +1,6 @@
 <h1>Global Relief Actions (GRA) </h1> <h2>World Funder (WF) </h2> <h4> Humanitarian Action (HA)</h4>
 <p>About Humanitarian Action. </p>
-<p> <u>Donation page:</u> button- below the page.</p>
+<p> Donation page: button- below the page.</p>
 <p><ol>
   <li>Solve puzzle, fill in details, then click 'Donate'.</li>
   <li>Scroll up then click the first "<i>Donate Now</i>" <mark>(VERY IMPORTANT)</mark>.</li>

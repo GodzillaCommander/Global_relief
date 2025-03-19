@@ -1,16 +1,21 @@
-  <h1>Global Relief Actions (GRA) </h1> <h2>World Funder (WF) </h2> <h4> Humanitarian Action (HA)</h4>
-<p>About Humanitarian Action. </p>
-<p> Donation page: button- below the page.</p>
-<p><ol>
-  <li>Solve puzzle, fill in details, then click 'Donate'.</li>
-  <li>Scroll up then click the first "<i>Donate Now</i>" <mark>(VERY IMPORTANT)</mark>.</li>
-<li>Wait, then click '<i>Stabalize System</i>'.</li>
-<li>Play the minigame.</li>
-<li>Reach the end by clicking on the ball(s).</li>
-<li>Choose your tasks to do and start working.</li>
-<li>You can add tasks or abort them. </li>
-<li>Check your calendar and start the timer.</li>
-<li>Read the <i> Motivational </i> quotes.</li>
-</ol>
-</p>
-<p>Enjoy!</p>
+# 🌍 Global Relief Actions  
+
+### World Funder | Humanitarian Actions  
+
+Welcome to **Global Relief Actions**!
+
+---
+
+## 📢 How to Donate  
+1. Scroll down to find the **Donation** section.  
+2. Solve the puzzle, fill in your details, and click **"Donate"**.  
+3. Scroll back up and click the first **"Donate Now"** button <span style="color: red;">(**VERY IMPORTANT**)</span>.  
+4. Wait for the system to process, then click **"Stabiliza System"**.  
+
+---
+
+## 🎮 Additional Features  
+✔️ **Play the minigame** – Click on the ball(s) to reach the end.  
+✔️ **Task Management** – Choose tasks, start working, add new ones, or abort all tasks.  
+✔️ **Calendar & Timer** – Plan efficiently and track progress.  
+✔️ **Motivational Quotes** – Stay inspired!  
